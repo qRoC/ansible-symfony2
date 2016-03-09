@@ -1,1 +1,8 @@
+# IntelliJ project files
+.idea
+*.iml
+
+# OSX
+.DS_Store
+
 ansible.cfg

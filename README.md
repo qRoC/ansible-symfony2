@@ -50,13 +50,12 @@ This playbook is taken from the travis testcase. You can always pass these value
     symfony_project_root: /tmp/test_app
     symfony_project_name: travis-test
     symfony_project_composer_path: /tmp/test_app/shared/composer.phar
-    symfony_project_repo: https://github.com/symfony/symfony-standard.git
+    symfony_project_deploy_from: .
     symfony_project_env: prod
 
     symfony_project_console_opts: '--no-debug'
     symfony_project_keep_releases: 5
 
-    symfony_project_branch: "2.6"
     symfony_project_php_path: php
     symfony_project_keep_releases: 5
 
@@ -64,7 +63,7 @@ This playbook is taken from the travis testcase. You can always pass these value
     symfony_project_composer_opts: '--no-dev --optimize-autoloader --no-interaction'
 ```
 
-Commandline: ```~$ ansible-playbook -i inventory --extra-vars "symfony_project_release=20150417142505,symfony_project_branch=master" test.yml```
+Commandline: ```~$ ansible-playbook -i inventory --extra-vars "symfony_project_release=20150417142505" test.yml```
 
 ## Role Variables
 
@@ -78,7 +77,7 @@ These are the possible role variables - you only need to have a small set define
     # necessary project vars
     symfony_project_root: Path where application will be deployed on server.
     symfony_project_composer_path: path where composer.phar will be stored (e.g. project_root/shared)
-    symfony_project_repo: URL of git repository.
+    symfony_project_deploy_from: Path to project
     symfony_project_release: Release number, can be numeric, we recommend to set it to release date/time, 20140327100911
     symfony_project_env: prod
 
@@ -88,10 +87,8 @@ These are the possible role variables - you only need to have a small set define
     symfony_project_pre_live_switch_tasks: before live symlink is switched
     symfony_project_post_live_switch_tasks: after live symlink is switched
 
-    symfony_project_branch: git branch, commit hash or version tag to deploy - defaults to master
     symfony_project_php_path: php
     symfony_project_keep_releases: 5
-    symfony_project_git_clone_depth: 1 # uses git shallow copy
     symfony_project_github_token: Auth token for github rate limits
     symfony_project_console_opts: ''
     symfony_project_console_command: 'app/console' # sf >= 3.0 bin/console
@@ -123,10 +120,8 @@ As you can see, the release number default is the current date/time with seconds
 ---
 - vars
     symfony_project_release: <datetime> # internally replaced with YmdHis
-    symfony_project_branch: master
     symfony_project_php_path: /usr/bin/php
     symfony_project_keep_releases: 5
-    symfony_project_git_clone_depth: 1
     symfony_project_console_opts: ''
     symfony_project_composer_opts: '--no-dev --optimize-autoloader --no-interaction'
     symfony_project_fire_migrations: False
